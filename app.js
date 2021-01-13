@@ -2,6 +2,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const reversesEl = document.querySelector("#reversesEl");
 const roundsEl = document.querySelector("#roundsEl");
+const timeBetEl = document.querySelector("#timeBet");
 
 canvas.width = innerWidth; //window.innerWidth window object is automatic
 canvas.height = innerHeight;
@@ -44,7 +45,6 @@ const teal = "#008080";
 const maroon = "rgb(128,0,0)";
 
 const multiplier = 1;
-const minSize = 8;
 const Size = 10;
 const orbit = (400.0 / (2.0 * Math.PI)) * multiplier;
 
@@ -76,7 +76,7 @@ malcolm = new Runner(
 let animationID;
 let score = 0;
 
-const buffer = 500;
+const buffer = 600;
 
 let timeWait = 0;
 let rounds = 0;
@@ -96,14 +96,19 @@ function animate() {
   ctx.stroke();
   const dist = Math.hypot(timothy.x - malcolm.x, timothy.y - malcolm.y);
   d1 = new Date();
-  if (dist <= timothy.r + malcolm.r && d1 - lastReverse > buffer) {
+  if (dist <= 0.5 && d1 - lastReverse > buffer) {
+    // timeBetEl.innerHTML = Math.floor((d1-lastReverse)/10)
     lastReverse = new Date();
     timothy.sense *= -1;
     reverses += 1;
     reversesEl.innerHTML = reverses;
   }
+
   d2 = new Date();
-  if (Math.abs(malcolm.x - (x0 + orbit)) < 0.5 && d2 - lastRound > buffer) {
+  if (
+    Math.abs(malcolm.x - (x0 + orbit)) < malcolm.r / 10 &&
+    d2 - lastRound > buffer
+  ) {
     rounds++;
     lastRound = new Date();
   }
