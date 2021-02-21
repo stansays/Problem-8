@@ -137,14 +137,7 @@ function animate() {
   }
 
   d2 = new Date();
-<<<<<<< HEAD
   if (Math.abs(malcolm.x - (x0 + orbit)) < 0.1 && d2 - lastRound > buffer) {
-=======
-  if (
-    Math.abs(malcolm.x - (x0 + orbit)) < 1 / 10 &&
-    d2 - lastRound > buffer
-  ) {
->>>>>>> 77b2c53f4259022264b0d79bd5676eb189e9dede
     rounds++;
     lastRound = new Date();
   }
