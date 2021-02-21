@@ -3,17 +3,20 @@ const ctx = canvas.getContext("2d");
 const reversesEl = document.querySelector("#reversesEl");
 const roundsEl = document.querySelector("#roundsEl");
 const timeBetEl = document.querySelector("#timeBet");
+const tim = document.querySelector("#Tim");
+const mal = document.querySelector("#Mal");
+
 
 canvas.width = innerWidth; //window.innerWidth window object is automatic
 canvas.height = innerHeight;
 
 class Runner {
-  constructor(center, orbit, r, color, letter, a, da, sense, x, y) {
+  constructor(center, orbit, r, color, name, a, da, sense, x, y) {
     this.center = center;
     this.orbit = orbit;
     this.r = r;
     this.color = color;
-    this.letter = letter;
+    this.name = name;
     this.a = a;
     this.da = da;
     this.sense = sense; // 0 for CCW, 1 for CW
@@ -21,10 +24,15 @@ class Runner {
     this.y = y;
   }
   draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    circ = document.querySelector("#"+this.name);
+    circ.style.r = this.r;
+    circ.style.cx = this.x;
+    circ.style.cy = this.y;
+    circ.style.fill = this.color;
+    // ctx.beginPath();
+    // ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+    // ctx.fillStyle = this.color;
+    // ctx.fill();
     // ctx.font = "8pt Calibri";
     // ctx.fillStyle = "white";
     // ctx.textAlign = "center";
@@ -55,7 +63,7 @@ timothy = new Runner(
   orbit,
   Size,
   teal,
-  "T",
+  "Tim",
   0,
   (3.0 / orbit) * multiplier,
   1,
@@ -67,7 +75,7 @@ malcolm = new Runner(
   orbit,
   Size,
   maroon,
-  "M",
+  "Mal",
   0,
   (2.0 / orbit) * multiplier,
   -1,
