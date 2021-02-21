@@ -25,8 +25,10 @@ class Runner {
     ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
     ctx.fillStyle = this.color;
     ctx.fill();
-    ctx.textAlign = "center";
-    ctx.fillText(this.letter, this.x, this.y + 3);
+    // ctx.font = "8pt Calibri";
+    // ctx.fillStyle = "white";
+    // ctx.textAlign = "center";
+    // ctx.fillText("0", x, y + 3);
   }
 
   update() {
@@ -105,10 +107,7 @@ function animate() {
   }
 
   d2 = new Date();
-  if (
-    Math.abs(malcolm.x - (x0 + orbit)) < malcolm.r / 10 &&
-    d2 - lastRound > buffer
-  ) {
+  if (Math.abs(malcolm.x - (x0 + orbit)) < 1 / 10 && d2 - lastRound > buffer) {
     rounds++;
     lastRound = new Date();
   }
