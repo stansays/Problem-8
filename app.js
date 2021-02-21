@@ -64,6 +64,7 @@ const multiplier = 1;
 const Size = 10*multiplier;
 const orbit = (400.0 / (2.0 * Math.PI)) * multiplier;
 
+function init(){
 timothy = new Runner(
   { x: x0, y: y0 },
   orbit,
@@ -87,18 +88,17 @@ malcolm = new Runner(
   -1,
   x0 + orbit,
   y0
-);
+);};
 
 let animationID;
-let score = 0;
 
 const buffer = 600;
 
-let timeWait = 0;
-let rounds = 0;
-let reverses = 0;
-let lastReverse = new Date();
-let lastRound = new Date();
+let timeWait;
+let rounds;
+let reverses;
+let lastReverse;
+let lastRound;
 let d1, d2;
 
 
@@ -116,6 +116,8 @@ sLine.setAttribute("y1",y0);
 sLine.setAttribute("x2",x0+orbit+5);
 sLine.setAttribute("y2",y0);
 sLine.setAttribute("style","stroke:rgb(0,0,0);stroke-width:2")
+
+let active;
 function animate() {
   // ctx.fillStyle = "white";
   // ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -143,6 +145,8 @@ function animate() {
   }
   if (rounds >= 10) {
     clearInterval(active);
+    modalEl.style.display = "flex";
+    startBtn.innerHTML = "RESET";
   }
   if (timeWait >= 60) timothy.update();
   malcolm.update();
@@ -150,4 +154,14 @@ function animate() {
   timeWait++;
 }
 
-let active = setInterval(animate, 10);
+startBtn.addEventListener("click", () => {
+  timeWait = 0;
+  rounds = 0;
+  reverses = 0;
+  init();
+  timothy.draw();
+  lastReverse = new Date();
+  lastRound = new Date();
+  active = setInterval(animate, 10);
+  modalEl.style.display = "none";
+});
