@@ -1,5 +1,5 @@
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+// const canvas = document.querySelector("canvas");
+// const ctx = canvas.getContext("2d");
 const reversesEl = document.querySelector("#reversesEl");
 const roundsEl = document.querySelector("#roundsEl");
 const timeBetEl = document.querySelector("#timeBet");
@@ -7,8 +7,8 @@ const tim = document.querySelector("#Tim");
 const mal = document.querySelector("#Mal");
 
 
-canvas.width = innerWidth; //window.innerWidth window object is automatic
-canvas.height = innerHeight;
+// canvas.width = innerWidth; //window.innerWidth window object is automatic
+// canvas.height = innerHeight;
 
 class Runner {
   constructor(center, orbit, r, color, name, a, da, sense, x, y) {
@@ -24,11 +24,12 @@ class Runner {
     this.y = y;
   }
   draw() {
-    circ = document.querySelector("#"+this.name);
-    circ.style.r = this.r;
-    circ.style.cx = this.x;
-    circ.style.cy = this.y;
-    circ.style.fill = this.color;
+    let circ = document.querySelector("#"+this.name);
+    circ.setAttribute("r",this.r);
+    circ.setAttribute("cx",this.x);
+    circ.setAttribute("cy",this.y);
+    circ.setAttribute("fill",this.color);
+    // console.log(circ);
     // ctx.beginPath();
     // ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
     // ctx.fillStyle = this.color;
@@ -48,14 +49,19 @@ class Runner {
   }
 }
 
-const x0 = canvas.width / 2;
-const y0 = canvas.height / 2;
+// const x0 = canvas.width / 2;
+// const y0 = canvas.height / 2;
+
+const x0 = innerWidth / 2;
+const y0 = innerHeight / 2;
+let svg = document.getElementsByTagName("svg")[0];
+svg.setAttribute("viewBox","0 0 "+innerWidth+" "+innerHeight)
 
 const teal = "#008080";
 const maroon = "rgb(128,0,0)";
 
 const multiplier = 1;
-const Size = 10;
+const Size = 10*multiplier;
 const orbit = (400.0 / (2.0 * Math.PI)) * multiplier;
 
 timothy = new Runner(
@@ -94,16 +100,32 @@ let reverses = 0;
 let lastReverse = new Date();
 let lastRound = new Date();
 let d1, d2;
+
+
+let track = document.getElementById("track");
+track.setAttribute("cx",x0);
+track.setAttribute("cy",y0);
+track.setAttribute("r",orbit);
+track.setAttribute("stroke","black");
+track.setAttribute("stroke-width",2);
+track.setAttribute("fill","none");
+
+let sLine = document.getElementById("startLine");
+sLine.setAttribute("x1",x0+orbit-5);
+sLine.setAttribute("y1",y0);
+sLine.setAttribute("x2",x0+orbit+5);
+sLine.setAttribute("y2",y0);
+sLine.setAttribute("style","stroke:rgb(0,0,0);stroke-width:2")
 function animate() {
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
-  ctx.arc(x0, y0, orbit, 0, 2 * Math.PI, false);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x0 + orbit - 5, y0);
-  ctx.lineTo(x0 + orbit + 5, y0);
-  ctx.stroke();
+  // ctx.fillStyle = "white";
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // ctx.beginPath();
+  // ctx.arc(x0, y0, orbit, 0, 2 * Math.PI, false);
+  // ctx.stroke();
+  // ctx.beginPath();
+  // ctx.moveTo(x0 + orbit - 5, y0);
+  // ctx.lineTo(x0 + orbit + 5, y0);
+  // ctx.stroke();
   const dist = Math.hypot(timothy.x - malcolm.x, timothy.y - malcolm.y);
   d1 = new Date();
   if (dist <= 0.5 && d1 - lastReverse > buffer) {
@@ -115,7 +137,7 @@ function animate() {
   }
 
   d2 = new Date();
-  if (Math.abs(malcolm.x - (x0 + orbit)) < 1 / 10 && d2 - lastRound > buffer) {
+  if (Math.abs(malcolm.x - (x0 + orbit)) < 0.1 && d2 - lastRound > buffer) {
     rounds++;
     lastRound = new Date();
   }
