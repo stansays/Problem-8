@@ -158,6 +158,8 @@ startBtn.addEventListener("click", () => {
   timeWait = 0;
   rounds = 0;
   reverses = 0;
+  roundsEl.innerHTML = rounds;
+  reversesEl.innerHTML = reverses;
   init();
   timothy.draw();
   lastReverse = new Date();
