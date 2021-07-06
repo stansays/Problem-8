@@ -36,8 +36,6 @@ class Runner {
 
 const x0 = innerWidth / 2;
 const y0 = innerHeight / 2;
-let svg = document.getElementsByTagName("svg")[0];
-svg.setAttribute("viewBox", "0 0 " + innerWidth - 1 + " " + innerHeight - 1);
 
 const teal = "#008080";
 const maroon = "rgb(128,0,0)";
